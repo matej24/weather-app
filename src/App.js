@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const api = {
   key: "0b5e84adb64509589cc6d96bf7513dce",
@@ -9,15 +9,23 @@ function App() {
 
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
+  const [weatherConst, setWeatherConst] = useState([]);
+
+  useEffect()
+
+  // zg 6389
+  // amst 1524
+  // rey 91
+  // apibase + group?id=524901,703448,2643743&units=metric
 
   function apiCall() {
     fetch(`${api.base}weather?q=${query}&unit=metric&APPID=${api.key}`)
-    .then(res => res.json())
-    .then(result => {
-      setWeather(result)
-      setQuery('')
-      console.log(result)
-    })
+      .then(res => res.json())
+      .then(result => {
+        setWeather(result)
+        setQuery('')
+        console.log(result)
+      })
   }
 
   const search = evt => {
@@ -27,7 +35,7 @@ function App() {
   }
 
   const searchCitiyClick = () => {
-   apiCall()
+    apiCall()
   }
 
   const dateBuilder = (d) => {
@@ -42,14 +50,27 @@ function App() {
     return `${day}, ${date} ${month} ${year}`
   }
 
+  const backgroundColor = (weatherTemp) => {
+    if (weatherTemp < 278) {
+      return 'app winter'
+    }
+    if (weatherTemp >= 278 && weatherTemp < 288) {
+      return 'app cold'
+    }
+    if (weatherTemp >= 288 && weatherTemp < 298) {
+      return 'app springy'
+    }
+    if (weatherTemp >= 298) {
+      return 'app hot'
+    }
+  }
+
 
 
   return (
     <div className={
       (typeof weather.main != "undefined")
-        ? ((weather.main.temp > 289)
-          ? 'app warm'
-          : 'app')
+        ? backgroundColor(weather.main.temp)
         : 'app'}>
       <main>
         <div className="search-box">
@@ -76,7 +97,8 @@ function App() {
                 {Math.round(weather.main.temp - 273.15)}°c
           </div>
               <div className="weather">
-                {weather.weather[0].main}
+                <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icon" />
+                <h3>{weather.weather[0].main}</h3>
               </div>
             </div>
           </div>

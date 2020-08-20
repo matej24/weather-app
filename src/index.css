@@ -9,15 +9,25 @@ body {
 }
 
 .app {
-  background-image: url('./assets/cold-bg.jpg');
+  background-image: url('./assets/cold.jpg');
   background-size: cover;
   background-position: bottom;
   transition: 2.4s ease-out;
 }
 
-.app.warm {
-  background-image: url('./assets/warm-bg.jpg');
+.app.winter {
+  background-image: url('./assets/winter.jpg');
 }
+.app.cold {
+  background-image: url('./assets/cold.jpg');
+}
+.app.springy {
+  background-image: url('./assets/springy.jpg');
+}
+.app.hot {
+  background-image: url('./assets/hot.jpg');
+}
+
 
 main {
   min-height: 100vh;
