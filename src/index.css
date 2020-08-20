@@ -101,3 +101,26 @@ main {
   font-weight: 700;
   text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
 }
+
+.search-button {
+  width: 200px;
+  height: 45px;
+  font-weight: bold;
+  background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+  border-radius: 10px;
+  border: none;
+  transition: transform 1s;
+  color: white;
+  text-align: center;
+  
+}
+.search-button:hover{
+  background-position: right center;
+  transform: scale(1.1);
+}
+
+.button-holder{
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 30px;
+}

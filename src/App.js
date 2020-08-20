@@ -10,16 +10,24 @@ function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
 
+  function apiCall() {
+    fetch(`${api.base}weather?q=${query}&unit=metric&APPID=${api.key}`)
+    .then(res => res.json())
+    .then(result => {
+      setWeather(result)
+      setQuery('')
+      console.log(result)
+    })
+  }
+
   const search = evt => {
     if (evt.key === "Enter") {
-      fetch(`${api.base}weather?q=${query}&unit=metric&APPID=${api.key}`)
-        .then(res => res.json())
-        .then(result => {
-          setWeather(result)
-          setQuery('')
-          console.log(result)
-        })        
+      apiCall()
     }
+  }
+
+  const searchCitiyClick = () => {
+   apiCall()
   }
 
   const dateBuilder = (d) => {
@@ -38,11 +46,11 @@ function App() {
 
   return (
     <div className={
-      (typeof weather.main !="undefined") 
-      ? ((weather.main.temp > 289) 
-        ? 'app warm' 
-        : 'app')
-      : 'app'}>
+      (typeof weather.main != "undefined")
+        ? ((weather.main.temp > 289)
+          ? 'app warm'
+          : 'app')
+        : 'app'}>
       <main>
         <div className="search-box">
           <input
@@ -53,6 +61,9 @@ function App() {
             value={query}
             onKeyPress={search}
           />
+        </div>
+        <div className="button-holder">
+          <button className="search-button" onClick={() => searchCitiyClick()}>Search City</button>
         </div>
         {(typeof weather.main != "undefined") ? (
           <div>
@@ -66,7 +77,7 @@ function App() {
           </div>
               <div className="weather">
                 {weather.weather[0].main}
-          </div>
+              </div>
             </div>
           </div>
 
