@@ -10,7 +10,7 @@ function App() {
 
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
-  const [weatherConst, setWeatherConst] = useState(["foo"]);
+  const [weatherConst, setWeatherConst] = useState([]); // don't use `foo` here. just empty array is fine
 
   useEffect(() => {
     fetch(`${api.base}group?id=3413829,6618983,2759794&units=metric&APPID=${api.key}`)
@@ -69,8 +69,10 @@ function App() {
     }
   }
 
-  let constantWeatherList = weatherConst.map(el => {
+  let constantWeatherList = weatherConst
+    .map(el => {
     return <ConstantWeather 
+              key={el.id /* need to provide key to let React know identical weather you consider. it should be uniquer through `weatherConst` */ }
               cityId={el.id} 
               cityName={el.name} 
               country={el.sys.country} 
