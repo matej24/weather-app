@@ -69,7 +69,7 @@ function App() {
     }
   }
 
-  const constantWeatherList = weatherConst.length && weatherConst.map(el => {
+  const constantWeatherList = weatherConst.length > 0 && weatherConst.map(el => {
     return <ConstantWeather 
               key={el.id}
               cityName={el.name} 
