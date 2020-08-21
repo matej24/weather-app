@@ -10,7 +10,7 @@ function App() {
 
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
-  const [weatherConst, setWeatherConst] = useState(["foo"]);
+  const [weatherConst, setWeatherConst] = useState([]);
 
   useEffect(() => {
     fetch(`${api.base}group?id=3413829,6618983,2759794&units=metric&APPID=${api.key}`)
@@ -69,12 +69,13 @@ function App() {
     }
   }
 
-  let constantWeatherList = weatherConst.map(el => {
+  const constantWeatherList = weatherConst.length && weatherConst.map(el => {
     return <ConstantWeather 
-              cityId={el.id} 
+              key={el.id}
               cityName={el.name} 
               country={el.sys.country} 
               temperature={el.main.temp} 
+              icon={el.weather[0].icon}
               />
   })
 
@@ -114,7 +115,7 @@ function App() {
             </div>
           </div>
         ) : ("")}
-         <div>
+           <div className="constant-holder">
               {constantWeatherList}
             </div>
       </main>

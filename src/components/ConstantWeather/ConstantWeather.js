@@ -1,12 +1,12 @@
 import React from 'react';
-import classes from './ConstantWeather.css'
+import './ConstantWeather.css'
 
 function constantWeather(props) {
     return (
-        <div className={classes.Card} key={props.cityId}>
+        <div className="Card">
             <div>{props.cityName}, {props.country}</div>
-            <div>{props.temperature}</div>
-            <img />
+            <div>{Math.round(props.temperature)}°c</div>
+            <img src={`http://openweathermap.org/img/wn/${props.icon}@2x.png`} alt="icon"/>
         </div>
     )
 }
