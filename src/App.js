@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ConstantWeather from './components/ConstantWeather/ConstantWeather';
 
 const api = {
   key: "0b5e84adb64509589cc6d96bf7513dce",
@@ -9,14 +10,17 @@ function App() {
 
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
-  const [weatherConst, setWeatherConst] = useState([]);
+  const [weatherConst, setWeatherConst] = useState(["foo"]);
 
-  useEffect()
+  useEffect(() => {
+    fetch(`${api.base}group?id=3413829,6618983,2759794&units=metric&APPID=${api.key}`)
+    .then(res => res.json())
+    .then(result => {
+      setWeatherConst(result.list)
+      console.log("new list" , result.list)
+    })
+  }, [])
 
-  // zg 6389
-  // amst 1524
-  // rey 91
-  // apibase + group?id=524901,703448,2643743&units=metric
 
   function apiCall() {
     fetch(`${api.base}weather?q=${query}&unit=metric&APPID=${api.key}`)
@@ -65,7 +69,14 @@ function App() {
     }
   }
 
-
+  let constantWeatherList = weatherConst.map(el => {
+    return <ConstantWeather 
+              cityId={el.id} 
+              cityName={el.name} 
+              country={el.sys.country} 
+              temperature={el.main.temp} 
+              />
+  })
 
   return (
     <div className={
@@ -95,15 +106,17 @@ function App() {
             <div className="weather-box">
               <div className="temp">
                 {Math.round(weather.main.temp - 273.15)}°c
-          </div>
+             </div>
               <div className="weather">
                 <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icon" />
                 <h3>{weather.weather[0].main}</h3>
               </div>
             </div>
           </div>
-
         ) : ("")}
+         <div>
+              {constantWeatherList}
+            </div>
       </main>
     </div>
   );
