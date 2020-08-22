@@ -1,4 +1,4 @@
-.Card {
+.card {
     position: relative;
     display: inline-block;
     margin: 20px;
@@ -11,8 +11,8 @@
     text-align: center;
     text-shadow: 1px 3px rgba(50, 50, 70, 0.5);
     box-shadow: 1px 3px rgba(0, 0, 0, 0.2);
-    transition: 2s
+    transition: 1s ease-in-out;
 }
-.Card:hover{
-    scale: 1.1;
+.card:hover{
+    transform: scale(1.1);
 }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ConstantWeather from './components/ConstantWeather/ConstantWeather';
+import SearchBar from './components/SearchBar/SearchBar';
+
 
 const api = {
   key: "0b5e84adb64509589cc6d96bf7513dce",
@@ -85,21 +87,12 @@ function App() {
         ? backgroundColor(weather.main.temp)
         : 'app'}>
       <main>
-        <div className="search-box">
-          <input
-            type="text"
-            className="search-bar"
-            placeholder="Search..."
-            onChange={e => setQuery(e.target.value)}
-            value={query}
-            onKeyPress={search}
-          />
-        </div>
+        <SearchBar setQuery={setQuery} query={query} search={search} />
         <div className="button-holder">
           <button className="search-button" onClick={() => searchCitiyClick()}>Search City</button>
         </div>
         {(typeof weather.main != "undefined") ? (
-          <div>
+        <div>
             <div className="location-box">
               <div className="location">{weather.name}, {weather.sys.country}</div>
               <div className="date">{dateBuilder(new Date())}</div>
